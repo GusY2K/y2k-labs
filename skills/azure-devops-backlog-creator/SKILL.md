@@ -39,6 +39,7 @@ Parse the following from `$ARGUMENTS`:
 | `--area-path=<path>` | Area path for all items | Project root |
 | `--iteration=<iteration>` | Iteration/sprint path | Current iteration |
 | `--dry-run` | Preview what would be created without actually creating | `false` |
+| `--output=<file.md>` | Save the plan to a markdown file instead of only showing in chat | None (shows in chat) |
 | `--type=<agile|scrum|basic>` | Process template type | `agile` |
 | `--assign-to=<email>` | Default assignee for all items | Unassigned |
 | `--tags=<tag1,tag2>` | Additional tags for all items | None |
@@ -81,36 +82,110 @@ Use the `--type` argument to determine the correct work item type names througho
 
 ### Phase 2: Present Plan for Approval
 
-Before creating anything, present the full plan to the user:
+Before creating anything, **ask the user how they want to review the plan:**
 
 ```
-## Backlog Creation Plan
+I've analyzed the document and extracted the backlog structure.
+
+How would you like to review the plan?
+
+  1) Show here — Display the full plan in this conversation
+  2) Save to file — Generate a backlog-plan-YYYYMMDD-HHMMSS.md file you can review and edit
+  3) Both — Show here AND save to file
+```
+
+Wait for the user's choice. If `--output=<file>` was passed as argument, skip this question and save directly to that file path.
+
+#### Plan format (used for both display and file output):
+
+```markdown
+# Backlog Creation Plan
 
 **Document:** <filename>
 **Organization:** <org>
 **Project:** <project>
 **Process Template:** <agile|scrum|basic>
 **Iteration:** <iteration>
+**Generated:** YYYY-MM-DD HH:MM:SS
+**Session tag:** backlog-creator-YYYYMMDD-HHMMSS
 
-### Hierarchy Preview
+---
 
-Epic 1: <title>
-  Feature 1.1: <title>
-    User Story 1.1.1: <title> [SP: X] [Priority: Y]
-      Task 1.1.1.1: <title>
-      Task 1.1.1.2: <title>
-    User Story 1.1.2: <title> [SP: X] [Priority: Y]
-  Feature 1.2: <title>
-    ...
-Epic 2: <title>
-  ...
+## Summary
 
-**Total items to create:** X Epics, Y Features, Z Stories, W Tasks
+| Type | Count |
+|------|-------|
+| Epics | X |
+| Features | Y |
+| User Stories | Z |
+| Tasks | W |
+| Bugs | B |
+| **Total** | **N** |
+
+---
+
+## Hierarchy
+
+### Epic 1: <title>
+> <description summary>
+
+#### Feature 1.1: <title>
+
+##### User Story 1.1.1: <title>
+- **Story Points:** X
+- **Priority:** Y (High)
+- **Acceptance Criteria:**
+  - [ ] Criterion 1
+  - [ ] Criterion 2
+- **Tasks:**
+  - [ ] Task 1.1.1.1: <title>
+  - [ ] Task 1.1.1.2: <title>
+
+##### User Story 1.1.2: <title>
+- **Story Points:** X
+- **Priority:** Y
+- **Acceptance Criteria:**
+  - [ ] Criterion 1
+- **Tasks:**
+  - [ ] Task 1.1.2.1: <title>
+
+#### Feature 1.2: <title>
+...
+
+### Epic 2: <title>
+...
+
+---
+
+## Bugs
+
+### Bug 1: <title>
+- **Priority:** 1 (Critical)
+- **Repro Steps:**
+  1. Step 1
+  2. Step 2
+- **Expected:** ...
+- **Actual:** ...
+- **Parent:** Feature 1.2
+
+---
+
+## Ready to create?
+
+Run `/azure-devops-backlog-creator --execute` or confirm in chat to create all items in Azure DevOps.
 ```
 
-**WAIT for user confirmation before proceeding.** If the user requests changes, adjust the plan and re-present.
+When saving to file, use the `Write` tool to create the file at the specified path (or default to `backlog-plan-YYYYMMDD-HHMMSS.md` in the current directory).
 
-If `--dry-run` is set, stop here after showing the plan.
+**After presenting the plan (in chat, file, or both), WAIT for user confirmation before proceeding.**
+
+The user may:
+- **Approve as-is** → proceed to Phase 3
+- **Request changes** → adjust the plan, re-present, and wait again
+- **Edit the .md file directly** → re-read the file, detect changes, and use the updated plan
+- **Cancel** → stop without creating anything
+
+If `--dry-run` is set, stop here after showing/saving the plan. Do NOT proceed to Phase 3.
 
 ### Phase 3: Create Work Items (Top-Down)
 

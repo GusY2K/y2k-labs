@@ -132,6 +132,7 @@ Claude detects intent automatically — no slash command needed.
 | `--assign-to=<email>` | Default assignee | Unassigned |
 | `--tags=<t1,t2>` | Extra tags on all items | None |
 | `--priority=<1-4>` | Default priority | `2` |
+| `--output=<file>` | Save plan to .md file for review | None (shows in chat) |
 | `--dry-run` | Preview plan without creating | `false` |
 
 #### Examples
@@ -146,6 +147,9 @@ Claude detects intent automatically — no slash command needed.
 # Dry run — see what would be created
 /azure-devops-backlog-creator requirements.md --dry-run
 
+# Save plan to file for review before creating
+/azure-devops-backlog-creator spec.md --output=backlog-plan.md
+
 # Full options
 /azure-devops-backlog-creator feature.md --org=myorg --project=MyApp --assign-to=dev@company.com --tags=mvp,backend --priority=2
 ```
@@ -154,11 +158,12 @@ Claude detects intent automatically — no slash command needed.
 
 ```
 1. READ        Parse document → extract hierarchy (Epics, Features, Stories, Tasks, Bugs)
-2. PLAN        Show full preview → titles, story points, priorities, tree structure
-3. CONFIRM     Wait for your approval (nothing touches Azure until you say yes)
-4. CREATE      Top-down creation with az boards CLI → parent-child links established
-5. VERIFY      Count check + hierarchy validation → all items linked correctly
-6. REPORT      Summary table with IDs + direct links to your Azure board
+2. PLAN        Ask: show in chat, save to .md file, or both?
+3. REVIEW      You review the plan (edit the .md file if needed)
+4. CONFIRM     Nothing touches Azure until you say yes
+5. CREATE      Top-down creation with az boards CLI → parent-child links established
+6. VERIFY      Count check + hierarchy validation → all items linked correctly
+7. REPORT      Summary table with IDs + direct links to your Azure board
 ```
 
 Every session tags all items with `backlog-creator-YYYYMMDD-HHMMSS` for easy querying and rollback.
