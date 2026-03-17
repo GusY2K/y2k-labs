@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="340" viewBox="0 0 620 340">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .terminal { font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace; font-size: 13px; }
+      .brand { fill: #00F0A0; }
+      .white { fill: #E0E0E0; }
+      .bold { fill: #FFFFFF; font-weight: 700; }
+      .dim { fill: #888888; }
+      .green { fill: #00F0A0; }
+      .dot-red { fill: #FF5F56; }
+      .dot-yellow { fill: #FFBD2E; }
+      .dot-green { fill: #27C93F; }
+    </style>
+  </defs>
+
+  <!-- Terminal window -->
+  <rect width="620" height="340" rx="10" ry="10" fill="#0A0E12"/>
+
+  <!-- Title bar -->
+  <rect width="620" height="36" rx="10" ry="10" fill="#1A1E24"/>
+  <rect y="26" width="620" height="10" fill="#1A1E24"/>
+
+  <!-- Window dots -->
+  <circle cx="20" cy="18" r="6" class="dot-red"/>
+  <circle cx="40" cy="18" r="6" class="dot-yellow"/>
+  <circle cx="60" cy="18" r="6" class="dot-green"/>
+
+  <!-- Title -->
+  <text x="310" y="22" text-anchor="middle" class="terminal dim" font-size="12">po-skills — npm</text>
+
+  <!-- Banner ASCII art -->
+  <g class="terminal brand" transform="translate(30, 62)">
+    <text y="0">  ██████╗ ██╗   ██╗███████╗██╗   ██╗██████╗ ██╗  ██╗</text>
+    <text y="18"> ██╔════╝ ██║   ██║██╔════╝╚██╗ ██╔╝╚════██╗██║ ██╔╝</text>
+    <text y="36"> ██║  ███╗██║   ██║███████╗ ╚████╔╝  █████╔╝█████╔╝</text>
+    <text y="54"> ██║   ██║██║   ██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔═██╗</text>
+    <text y="72"> ╚██████╔╝╚██████╔╝███████║   ██║   ███████╗██║  ██╗</text>
+    <text y="90">  ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝</text>
+  </g>
+
+  <!-- Info text -->
+  <text x="30" y="178" class="terminal bold"> PO Skills <tspan class="dim">v1.0.0</tspan></text>
+  <text x="30" y="198" class="terminal white"> Product Owner agent skills for Azure DevOps.</text>
+  <text x="30" y="218" class="terminal white"> Reads documents and creates full backlogs automatically.</text>
+
+  <!-- Skills found -->
+  <text x="30" y="248" class="terminal bold"> Skills found:</text>
+  <text x="30" y="268" class="terminal"> <tspan class="green">•</tspan><tspan class="white"> azure-devops-backlog-creator</tspan></text>
+
+  <!-- Success box -->
+  <rect x="28" y="284" width="396" height="44" rx="0" ry="0" fill="none" stroke="#00F0A0" stroke-width="1.5"/>
+  <text x="38" y="310" class="terminal white"> Installation complete!</text>
+</svg>

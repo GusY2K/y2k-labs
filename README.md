@@ -1,8 +1,21 @@
 # po-skills
 
-Product Owner agent skills for Azure DevOps. Reads documents and creates full backlogs automatically.
+<p align="center">
+  <img src="assets/banner-preview.svg" alt="po-skills banner" width="620">
+</p>
 
-Built on the [Agent Skills](https://agentskills.io/specification) open standard. Works with **Claude Code, Cursor, GitHub Copilot, Windsurf, Cline**, and [40+ AI agents](https://github.com/vercel-labs/skills).
+<p align="center">
+  Product Owner agent skills for Azure DevOps. Reads documents and creates full backlogs automatically.
+</p>
+
+<p align="center">
+  Built on the <a href="https://agentskills.io/specification">Agent Skills</a> open standard. Works with <strong>Claude Code, Cursor, GitHub Copilot, Windsurf, Cline</strong>, and <a href="https://github.com/vercel-labs/skills">40+ AI agents</a>.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/po-skills"><img src="https://img.shields.io/npm/v/po-skills?color=00F0A0&label=npm" alt="npm version"></a>
+  <a href="https://github.com/GusY2K/po-skills"><img src="https://img.shields.io/github/license/GusY2K/po-skills?color=00F0A0" alt="license"></a>
+</p>
 
 ---
 
