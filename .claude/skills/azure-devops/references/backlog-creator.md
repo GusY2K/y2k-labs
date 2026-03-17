@@ -84,23 +84,26 @@ Wait for the user's choice. If `--output=<file>` was passed as argument, skip th
 
 #### Plan format (used for both display and file output):
 
+The `.md` file IS the preview of what will be created in Azure DevOps. It must reflect the EXACT same quality standards — Como/Quiero/Para, Given/When/Then, codebase context, tags, everything. The user reviews this file and what they approve is what gets created.
+
 ```markdown
 # Backlog Creation Plan
 
-**Document:** <filename>
-**Organization:** <org>
-**Project:** <project>
-**Process Template:** <agile|scrum|basic>
-**Iteration:** <iteration>
-**Generated:** YYYY-MM-DD HH:MM:SS
-**Session tag:** backlog-creator-YYYYMMDD-HHMMSS
+**Documento fuente:** <filename>
+**Organización:** <org>
+**Proyecto:** <project>
+**Template de proceso:** <agile|scrum|basic>
+**Iteración:** <iteration>
+**Generado:** YYYY-MM-DD HH:MM:SS
+**Tag de sesión:** backlog-creator-YYYYMMDD-HHMMSS
+**Tipo de documento detectado:** <Full PRD | Epic | Feature | Requisito | Bug | Notas de reunión>
 
 ---
 
-## Summary
+## Resumen
 
-| Type | Count |
-|------|-------|
+| Tipo | Cantidad |
+|------|----------|
 | Epics | X |
 | Features | Y |
 | User Stories | Z |
@@ -110,55 +113,166 @@ Wait for the user's choice. If `--output=<file>` was passed as argument, skip th
 
 ---
 
-## Hierarchy
+## Supuestos a confirmar
 
-### Epic 1: <title>
-> <description summary>
+> Si no hay supuestos, omitir esta sección.
 
-#### Feature 1.1: <title>
+- [ ] [SUPUESTO] Se asume que el rol principal es "inversor"
+- [ ] [SUPUESTO] Se asume exportación en formato CSV (no especificado)
+- [ ] [SUPUESTO] El documento no especifica qué pasa si X falla
 
-##### User Story 1.1.1: <title>
+---
+
+## Jerarquía
+
+### Epic 1: <título>
+
+**Descripción:** Contexto general del epic, objetivo de negocio, alcance.
+Métricas de éxito si las hay.
+
+---
+
+#### Feature 1.1: <título>
+
+**Descripción:** Qué incluye este feature y por qué es necesario.
+Contexto técnico: servicios/módulos afectados.
+Dependencias con otros features.
+**Fuera de alcance:** Qué NO incluye.
+
+---
+
+##### User Story 1.1.1: <título>
+
+**Historia de Usuario:**
+Como [rol del usuario],
+quiero [acción específica],
+para [beneficio o valor de negocio medible].
+
+**Contexto:**
+Por qué existe esta historia. Qué problema del usuario resuelve.
+Referencia a spec/documento fuente si aplica.
+
+**Notas técnicas:**
+- Servicio: `services/core/user-service/app/main.py`
+- Tabla: `users` (`database/init/01_schema.sql`)
+- Endpoint existente relacionado: `GET /api/v1/users`
+- Dependencia: requiere servicio de email configurado
+
+**Fuera de alcance:**
+- Login con OAuth (historia separada)
+
+**Criterios de aceptación:**
+
+1. El endpoint POST /auth/register acepta email y password
+2. La contraseña requiere 8+ caracteres, 1 mayúscula, 1 número, 1 especial
+3. Respuesta en formato estándar `{"success": true, "data": {...}}`
+
+**Escenario: Registro exitoso**
+Dado que ingreso email "nuevo@test.com" y contraseña válida,
+cuando presiono "Registrar",
+entonces se crea mi cuenta con estado email_verified=false,
+y recibo email de verificación con link válido por 24 horas.
+
+**Escenario: Email duplicado**
+Dado que ya existe un usuario con email "existente@test.com",
+cuando intento registrarme con ese email,
+entonces veo "Este email ya está registrado"
+y se ofrece enlace a "¿Olvidaste tu contraseña?"
+
+- **Story Points:** 5
+- **Prioridad:** 1 (Critical)
+- **Tags:** auth, registro, mvp
+
+**Tasks:**
+- [ ] Crear endpoint POST /auth/register en `services/core/user-service/app/main.py`
+- [ ] Agregar validación de email con schema Pydantic en `shared/models/__init__.py`
+- [ ] Implementar hash de contraseña con bcrypt en `shared/auth.py`
+- [ ] Escribir tests unitarios en `tests/test_registration.py`
+
+---
+
+##### User Story 1.1.2: <título>
+
+**Historia de Usuario:**
+Como [rol],
+quiero [acción],
+para [beneficio].
+
+**Contexto:** ...
+**Notas técnicas:** ...
+
+**Criterios de aceptación:**
+1. ...
+2. ...
+
+**Escenario: ...**
+Dado que ..., cuando ..., entonces ...
+
 - **Story Points:** X
-- **Priority:** Y (High)
-- **Acceptance Criteria:**
-  - [ ] Criterion 1
-  - [ ] Criterion 2
-- **Tasks:**
-  - [ ] Task 1.1.1.1: <title>
-  - [ ] Task 1.1.1.2: <title>
+- **Prioridad:** Y
+- **Tags:** ...
 
-##### User Story 1.1.2: <title>
-- **Story Points:** X
-- **Priority:** Y
-- **Acceptance Criteria:**
-  - [ ] Criterion 1
-- **Tasks:**
-  - [ ] Task 1.1.2.1: <title>
+**Tasks:**
+- [ ] ...
 
-#### Feature 1.2: <title>
-...
+---
 
-### Epic 2: <title>
+#### Feature 1.2: <título>
+
+**Descripción:** ...
+
+---
+
+### Epic 2: <título>
 ...
 
 ---
 
 ## Bugs
 
-### Bug 1: <title>
-- **Priority:** 1 (Critical)
-- **Repro Steps:**
-  1. Step 1
-  2. Step 2
-- **Expected:** ...
-- **Actual:** ...
-- **Parent:** Feature 1.2
+### Bug 1: <título>
+
+**Pasos para reproducir:**
+1. Ir a /login
+2. Ingresar email válido
+3. Hacer clic en "Iniciar sesión"
+
+**Escenario:**
+Dado que el servicio de auth está caído,
+cuando el usuario intenta hacer login,
+entonces ve un stack trace en lugar de un mensaje amigable.
+
+**Esperado:** Mensaje "Servicio no disponible, intente más tarde"
+**Actual:** JSON con stack trace y datos internos del servidor
+**Impacto:** Todos los usuarios — expone información sensible
+**Prioridad:** 1 (Critical)
+**Tags:** seguridad, login
+**Parent:** Feature 1.2
+**Archivos relacionados:** `services/core/user-service/app/main.py:45`
 
 ---
 
-## Ready to create?
+## Clasificación del contenido
 
-Run `/azure-devops-backlog-creator --execute` or confirm in chat to create all items in Azure DevOps.
+> Resumen de cómo se clasificó el documento.
+
+| Sección del documento | Clasificado como | Razón |
+|----------------------|------------------|-------|
+| "Gestión de Usuarios" | Epic | Tema amplio con múltiples capacidades |
+| "Registro con email" | Feature | Capacidad específica con varios flujos |
+| "El usuario debe poder..." | User Story | Comportamiento único testeable |
+| "No funciona el login en Safari" | Bug | Comportamiento incorrecto reportado |
+| "Sería bueno tener dark mode" | [SUPUESTO] Feature | Ambiguo — marcado para confirmar |
+
+---
+
+## ¿Listo para crear?
+
+Revisa el plan arriba. Puedes:
+1. **Aprobar** — Confirma en el chat para crear todos los items en Azure DevOps
+2. **Editar** — Modifica este archivo .md y avísame para re-leerlo
+3. **Ajustar** — Dime qué cambiar y regenero el plan
+4. **Cancelar** — No se crea nada
 ```
 
 When saving to file, use the `Write` tool to create the file at the specified path (or default to `backlog-plan-YYYYMMDD-HHMMSS.md` in the current directory).
