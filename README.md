@@ -24,49 +24,44 @@
 ## Install
 
 ```bash
-npx skills add -g GusY2K/po-skills
+npx po-skills -g
 ```
 
 > **Project-only** (not global):
 > ```bash
-> npx skills add GusY2K/po-skills
+> npx po-skills
 > ```
 
 ### Other install methods
 
 <details>
-<summary>Install a specific skill only</summary>
+<summary>Windows (copy mode)</summary>
 
 ```bash
-npx skills add -g GusY2K/po-skills@azure-devops-backlog-creator
+npx po-skills -g --copy
 ```
 </details>
 
 <details>
-<summary>Manual install (symlink)</summary>
+<summary>Specific runtime only</summary>
 
 ```bash
-# Clone
+npx po-skills -g --agent=cursor
+npx po-skills -g --agent=copilot
+npx po-skills -g --agent=windsurf
+npx po-skills -g --agent=cline
+npx po-skills -g --agent=all
+```
+</details>
+
+<details>
+<summary>Manual install (git clone)</summary>
+
+```bash
 git clone https://github.com/GusY2K/po-skills.git
-
-# Global — available in all projects
-mkdir -p ~/.claude/skills
-ln -s "$(pwd)/po-skills/skills/azure-devops-backlog-creator" ~/.claude/skills/azure-devops-backlog-creator
-
-# Project-only
-mkdir -p .claude/skills
-ln -s "$(pwd)/po-skills/skills/azure-devops-backlog-creator" .claude/skills/azure-devops-backlog-creator
+cd po-skills
+node bin/install.js -g
 ```
-</details>
-
-<details>
-<summary>Windows (no symlinks)</summary>
-
-```bash
-npx skills add -g GusY2K/po-skills --copy
-```
-
-Or manually copy the `skills/azure-devops-backlog-creator/` folder into `%USERPROFILE%\.claude\skills\`.
 </details>
 
 ### Verify
@@ -84,17 +79,9 @@ npx po-skills@latest -g
 
 ## Manage
 
-If you also use the `skills` CLI (Vercel), these commands work too:
+### Uninstall
 
-```bash
-# List installed skills
-npx skills list
-npx skills ls -g          # global only
-
-# Remove
-npx skills remove azure-devops-backlog-creator
-npx skills rm -g azure-devops-backlog-creator   # global
-```
+Delete the skill folders from `~/.claude/skills/` (or the equivalent for your runtime).
 
 ---
 
@@ -315,18 +302,18 @@ bash scripts/validate-prerequisites.sh myorg myproject
 ### One-liner for everyone
 
 ```bash
-npx skills add -g GusY2K/po-skills
+npx po-skills -g
 ```
 
-### Lock to project (auto-install for new contributors)
+### Lock to project
 
 ```bash
-npx skills add GusY2K/po-skills
-git add skills-lock.json .claude/skills/
+npx po-skills
+git add .claude/skills/
 git commit -m "chore: add PO skills for Azure DevOps"
 ```
 
-New contributors run `npx skills install` to restore all locked skills.
+New contributors clone and run `npx po-skills` to install.
 
 ---
 
@@ -366,7 +353,7 @@ Also compatible with any agent that supports the [Agent Skills standard](https:/
 ### Create a new skill
 
 ```bash
-npx skills init my-new-skill
+mkdir skills/my-new-skill && touch skills/my-new-skill/SKILL.md
 ```
 
 ---

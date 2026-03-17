@@ -161,7 +161,7 @@ Each template generates a Feature with properly structured Stories, Tasks, and a
 One command:
 
 ```bash
-npx skills add -g GusY2K/po-skills
+npx po-skills -g
 ```
 
 That installs all four skills globally. Start a new Claude Code session, type `/`, and you'll see them in the skill list.
@@ -203,7 +203,7 @@ The roadmap includes:
 ## Try it
 
 ```bash
-npx skills add -g GusY2K/po-skills
+npx po-skills -g
 ```
 
 The repo is open source (Apache 2.0): **[github.com/GusY2K/po-skills](https://github.com/GusY2K/po-skills)**

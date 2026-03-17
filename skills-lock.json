@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "azure-devops-backlog-creator": {
+      "source": "GusY2K/po-skills",
+      "sourceType": "github",
+      "computedHash": "e8ad2bde7b98ecb8304a47241521ec0b66e1532c0af3f31bc99f68d83cc2ab9c"
+    },
+    "backlog-health-audit": {
+      "source": "GusY2K/po-skills",
+      "sourceType": "github",
+      "computedHash": "a7fec57cafb0230fbbc745c0e5651e345218c93c5daa0c678aab5795e0564853"
+    },
+    "sprint-planner": {
+      "source": "GusY2K/po-skills",
+      "sourceType": "github",
+      "computedHash": "d777c003909595d0fff321652788b7ef2c9a4db84f1a20724451af168598049e"
+    },
+    "work-item-templates": {
+      "source": "GusY2K/po-skills",
+      "sourceType": "github",
+      "computedHash": "62622cf44f5a8d6b5b628ce750921859636f7d8b22114141efe561e9749bbce4"
+    }
+  }
+}
