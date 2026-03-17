@@ -1,6 +1,6 @@
 {
   "name": "y2k-labs",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Y2K Labs — Agent skills for the entire software development lifecycle. Azure DevOps, backlog automation, sprint planning, templates, and more.",
   "bin": {
     "y2k-labs": "bin/install.js"

@@ -54,7 +54,7 @@ Each skill is a `SKILL.md` file that gives your AI agent specialized knowledge. 
 
 **Slash command:**
 ```
-/azure-devops-backlog-creator path/to/document.md
+/azure-devops path/to/document.md
 ```
 
 **Natural language (auto-detected):**
