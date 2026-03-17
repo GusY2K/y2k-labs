@@ -8,6 +8,7 @@
 
 [![npm version](https://img.shields.io/npm/v/y2k-labs?style=for-the-badge&logo=npm&logoColor=white&color=00F0A0)](https://www.npmjs.com/package/y2k-labs)
 [![npm downloads](https://img.shields.io/npm/dm/y2k-labs?style=for-the-badge&logo=npm&logoColor=white&color=00F0A0)](https://www.npmjs.com/package/y2k-labs)
+[![Tests](https://img.shields.io/github/actions/workflow/status/GusY2K/y2k-labs/test.yml?branch=main&style=for-the-badge&logo=github&label=Tests)](https://github.com/GusY2K/y2k-labs/actions/workflows/test.yml)
 [![GitHub stars](https://img.shields.io/github/stars/GusY2K/y2k-labs?style=for-the-badge&logo=github&color=00F0A0)](https://github.com/GusY2K/y2k-labs)
 [![License](https://img.shields.io/badge/license-Apache--2.0-00F0A0?style=for-the-badge)](LICENSE.txt)
 
