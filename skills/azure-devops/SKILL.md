@@ -58,23 +58,96 @@ Detect the user's intent and route to the correct capability. Ask if ambiguous.
 
 ## Capability 1: Backlog Creator
 
-Reads a document and creates a complete Azure DevOps backlog hierarchy.
+Reads ANY document and creates Azure DevOps work items at the appropriate level.
 
 **Load reference:** `references/backlog-creator.md` for the full step-by-step execution flow.
 
-**Quick flow:**
-1. Read the document → extract hierarchy (Epics, Features, Stories, Tasks, Bugs)
-2. **Scan the codebase** for context (see Context Enrichment below)
-3. Enrich items with codebase context: file paths, existing endpoints, DB tables, dependencies
-4. Ask user how to review: show in chat, save to .md, or both
-5. WAIT for approval — nothing touches Azure until confirmed
-6. Create top-down with `az boards` CLI → establish parent-child links
-7. Verify count + hierarchy integrity
-8. Report with IDs and board links
+### Step 0: Classify the Document
 
-**Key arguments:** `<document-path>`, `--org`, `--project`, `--iteration`, `--type=<agile|scrum|basic>`, `--dry-run`, `--output=<file.md>`, `--assign-to`, `--tags`, `--priority`
+Before extracting anything, **classify the document type** to determine what level of hierarchy to create:
+
+| Document type | What you create | Example |
+|--------------|----------------|---------|
+| **Full PRD / Product spec** | Epic(s) → Features → Stories → Tasks | "Product Requirements: User Management System" |
+| **Epic description** | 1 Epic → Features → Stories → Tasks | "Epic: Autenticación y Autorización" |
+| **Feature spec** | 1 Feature → Stories → Tasks (ask user which Epic to link to) | "Feature: Registro con verificación de email" |
+| **Single requirement** | 1 Story → Tasks (ask user which Feature to link to) | "El usuario debe poder resetear su contraseña" |
+| **Bug report / incident** | 1 Bug (ask user which Feature to link to) | "Error 500 al hacer login con SSO" |
+| **Meeting notes** | Extract action items → Stories/Tasks/Bugs as appropriate | "Notas de refinamiento sprint 5" |
+| **Ambiguous / high-level idea** | **STOP and clarify** (see below) | "Quiero algo para monitorear las acciones" |
+
+### Handling Ambiguous Documents
+
+If the document is vague, has many assumptions, or is more of an idea than a spec:
+
+**DO NOT guess.** Instead, ask the user structured questions:
+
+```
+He leído el documento y detecto que hay áreas que necesitan clarificación
+antes de crear work items de calidad. Necesito resolver lo siguiente:
+
+1. **Alcance:** El documento menciona [X] — ¿esto es un Epic completo o
+   un Feature dentro de un Epic existente?
+
+2. **Rol del usuario:** No queda claro quién es el usuario principal.
+   ¿Es [opción A] o [opción B]?
+
+3. **Supuestos que detecto:**
+   - [Supuesto 1] — ¿Es correcto?
+   - [Supuesto 2] — ¿Es correcto?
+   - [Supuesto 3] — ¿Es correcto?
+
+4. **Información faltante:**
+   - [Qué falta 1] — ¿Tienes más detalle o lo definimos juntos?
+   - [Qué falta 2]
+
+5. **Prioridad:** ¿Cuál es la prioridad general? (1-Critical, 2-High, 3-Medium, 4-Low)
+
+Puedo:
+  a) Crear los items con los supuestos marcados como [SUPUESTO] en la descripción
+  b) Esperar a que me des más contexto
+  c) Crear una versión mínima y refinar después
+```
+
+### Linking to Existing Items
+
+When the document describes a Feature or Story (not a full PRD), ask the user for the parent:
+
+```
+Este documento describe un Feature. ¿A qué Epic lo vinculo?
+
+Puedo:
+  1) Buscar Epics existentes en Azure DevOps y mostrarte las opciones
+  2) Crear un nuevo Epic para contenerlo
+  3) Dejarlo sin padre por ahora
+
+¿Cuál prefieres?
+```
+
+To search existing parents:
+```bash
+az boards query --wiql "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Epic' AND [System.State] <> 'Closed' ORDER BY [System.ChangedDate] DESC" --output table
+```
+
+### Quick flow:
+1. Read the document
+2. **Classify the document type** (see table above)
+3. If ambiguous → ask clarifying questions, resolve assumptions
+4. Extract hierarchy at the appropriate level
+5. **Scan the codebase** for context (see Context Enrichment below)
+6. Enrich items with codebase context: file paths, existing endpoints, DB tables, dependencies
+7. If not a full PRD → ask user for parent item to link to
+8. Ask user how to review: show in chat, save to .md, or both
+9. WAIT for approval — nothing touches Azure until confirmed
+10. Create top-down with `az boards` CLI → establish parent-child links
+11. Verify count + hierarchy integrity
+12. Report with IDs and board links
+
+**Key arguments:** `<document-path>`, `--org`, `--project`, `--iteration`, `--type=<agile|scrum|basic>`, `--dry-run`, `--output=<file.md>`, `--assign-to`, `--tags`, `--priority`, `--parent-id=<id>` (link all top-level items to this parent)
 
 **Session tagging:** All items tagged `backlog-creator-YYYYMMDD-HHMMSS` for rollback.
+
+**Assumption tracking:** When creating items from ambiguous documents, prefix assumed content with `[SUPUESTO]` in the description so the team can review and confirm during refinement.
 
 ## Capability 2: Backlog Health Audit
 
