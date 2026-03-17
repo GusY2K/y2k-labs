@@ -25,9 +25,8 @@ const banner = '\n' +
   '  ╚██████╔╝╚██████╔╝███████║   ██║   ███████╗██║  ██╗\n' +
   '   ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝' + reset + '\n' +
   '\n' +
-  '  ' + bold + 'PO Skills' + reset + ' ' + dim + 'v' + pkg.version + reset + '\n' +
-  '  Product Owner agent skills for Azure DevOps.\n' +
-  '  Reads documents and creates full backlogs automatically.\n';
+  '  ' + bold + 'Y2K Labs' + reset + ' ' + dim + 'v' + pkg.version + reset + '\n' +
+  '  Agent skills for the entire software development lifecycle.\n';
 
 console.log(banner);
 
@@ -254,7 +253,7 @@ async function main() {
   console.log(`  ${dim}Slash command:${reset}  /azure-devops-backlog-creator doc.md`);
   console.log(`  ${dim}Natural lang:${reset}   "Create backlog from this PRD in Azure DevOps"`);
   console.log('');
-  console.log(`  ${dim}Docs: https://github.com/GusY2K/po-skills${reset}`);
+  console.log(`  ${dim}Docs: https://github.com/GusY2K/y2k-labs${reset}`);
   console.log('');
 }
 

@@ -27,11 +27,11 @@ What it does:
 - Plans sprints based on actual velocity and dependencies
 - Generates standard work items from 18 templates (API endpoint, CRUD, auth, CI/CD...)
 
-One command: npx po-skills -g
+One command: npx y2k-labs -g
 
 Works with Claude Code, Cursor, Copilot, Windsurf, and 40+ AI agents.
 
-GitHub: https://github.com/GusY2K/po-skills
+GitHub: https://github.com/GusY2K/y2k-labs
 npm: https://www.npmjs.com/package/po-skills
 
 Would love feedback from anyone working with Azure DevOps!
@@ -57,16 +57,16 @@ Also includes:
 
 Uses az boards CLI under the hood. Open source, Apache 2.0.
 
-npx po-skills -g
+npx y2k-labs -g
 
-https://github.com/GusY2K/po-skills
+https://github.com/GusY2K/y2k-labs
 ```
 
 **3. Hacker News (Show HN)**
 ```
 Title: Show HN: po-skills – Document to Azure DevOps backlog with AI agent skills
 
-URL: https://github.com/GusY2K/po-skills
+URL: https://github.com/GusY2K/y2k-labs
 ```
 
 **4. Twitter/X**
@@ -78,11 +78,11 @@ URL: https://github.com/GusY2K/po-skills
 📊 Sprint planner (velocity-based)
 📝 18 work item templates
 
-One command: npx po-skills -g
+One command: npx y2k-labs -g
 
 Works with Claude Code, Cursor, Copilot & 40+ AI agents
 
-https://github.com/GusY2K/po-skills
+https://github.com/GusY2K/y2k-labs
 
 #AzureDevOps #AI #AgentSkills #ClaudeCode #ProductOwner
 ```
@@ -98,13 +98,13 @@ I built po-skills — an open-source set of AI agent skills that automates the e
 ✅ Plan sprints → velocity-based with dependency ordering
 ✅ 18 templates → API endpoint, CRUD, auth, CI/CD, and more
 
-One command: npx po-skills -g
+One command: npx y2k-labs -g
 
 Compatible with Claude Code, Cursor, GitHub Copilot, Windsurf, and 40+ AI coding agents.
 
 Apache 2.0 licensed. Feedback welcome.
 
-https://github.com/GusY2K/po-skills
+https://github.com/GusY2K/y2k-labs
 
 #ProductOwner #AzureDevOps #AI #Agile #Scrum #DevOps
 ```

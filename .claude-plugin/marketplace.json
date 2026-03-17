@@ -1,18 +1,18 @@
 {
-  "name": "po-skills",
+  "name": "y2k-labs",
   "owner": {
-    "name": "Radarum",
+    "name": "Y2K Labs",
     "email": "gus_y2k@hotmail.com"
   },
   "metadata": {
-    "description": "Product Owner skills for Azure DevOps backlog management and work item automation.",
-    "version": "2.0.0",
-    "tags": ["azure-devops", "product-owner", "backlog", "agile", "scrum", "sprint-planning", "health-audit", "templates"]
+    "description": "Agent skills for the entire software development lifecycle. Azure DevOps automation, backlog management, sprint planning, and more.",
+    "version": "3.0.0",
+    "tags": ["azure-devops", "product-owner", "backlog", "agile", "scrum", "sprint-planning", "devops", "software-development"]
   },
   "plugins": [
     {
-      "name": "po-tools",
-      "description": "Product Owner tools for Azure DevOps automation",
+      "name": "azure-devops",
+      "description": "Azure DevOps backlog automation, health auditing, sprint planning, and work item templates",
       "source": "./",
       "strict": false,
       "skills": [

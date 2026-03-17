@@ -161,7 +161,7 @@ Each template generates a Feature with properly structured Stories, Tasks, and a
 One command:
 
 ```bash
-npx po-skills -g
+npx y2k-labs -g
 ```
 
 That installs all four skills globally. Start a new Claude Code session, type `/`, and you'll see them in the skill list.
@@ -203,10 +203,10 @@ The roadmap includes:
 ## Try it
 
 ```bash
-npx po-skills -g
+npx y2k-labs -g
 ```
 
-The repo is open source (Apache 2.0): **[github.com/GusY2K/po-skills](https://github.com/GusY2K/po-skills)**
+The repo is open source (Apache 2.0): **[github.com/GusY2K/y2k-labs](https://github.com/GusY2K/y2k-labs)**
 
 If this saves you time, star the repo. If something breaks, open an issue. If you want to add a skill, PRs are welcome — each skill is just a `SKILL.md` file with instructions.
 
@@ -214,4 +214,4 @@ I'd love to hear how other POs and dev leads are handling backlog creation at sc
 
 ---
 
-*po-skills is free and open source. [npm](https://www.npmjs.com/package/po-skills) | [GitHub](https://github.com/GusY2K/po-skills)*
+*po-skills is free and open source. [npm](https://www.npmjs.com/package/po-skills) | [GitHub](https://github.com/GusY2K/y2k-labs)*

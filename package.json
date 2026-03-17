@@ -1,9 +1,9 @@
 {
-  "name": "po-skills",
-  "version": "2.1.0",
-  "description": "Product Owner agent skills for Azure DevOps. Reads documents and creates full backlogs automatically.",
+  "name": "y2k-labs",
+  "version": "3.0.0",
+  "description": "Y2K Labs — Agent skills for the entire software development lifecycle. Azure DevOps, backlog automation, sprint planning, templates, and more.",
   "bin": {
-    "po-skills": "bin/install.js"
+    "y2k-labs": "bin/install.js"
   },
   "files": [
     "bin",
@@ -14,23 +14,27 @@
     "claude",
     "claude-code",
     "ai",
+    "agent-skills",
     "azure-devops",
     "product-owner",
     "backlog",
     "agile",
     "scrum",
+    "sprint-planning",
     "work-items",
-    "agent-skills"
+    "devops",
+    "software-development",
+    "y2k-labs"
   ],
   "author": "GusY2K",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GusY2K/po-skills.git"
+    "url": "git+https://github.com/GusY2K/y2k-labs.git"
   },
-  "homepage": "https://github.com/GusY2K/po-skills",
+  "homepage": "https://github.com/GusY2K/y2k-labs",
   "bugs": {
-    "url": "https://github.com/GusY2K/po-skills/issues"
+    "url": "https://github.com/GusY2K/y2k-labs/issues"
   },
   "engines": {
     "node": ">=16.0.0"
